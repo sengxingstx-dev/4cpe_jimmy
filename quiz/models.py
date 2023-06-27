@@ -35,6 +35,8 @@ class Question(TimeStampedModel):
     html = models.TextField(_('Question Text'))
     is_published = models.BooleanField(_('Has been published?'), default=False, null=False)
     maximum_marks = models.DecimalField(_('Maximum Marks'), default=4, decimal_places=2, max_digits=6)
+    ex_time_limit = models.IntegerField(default=0, null=True, blank=True)
+    ex_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
         return self.html
@@ -53,7 +55,10 @@ class Choice(TimeStampedModel):
 
 class QuizProfile(TimeStampedModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    course = models.ForeignKey(ClassRoom, on_delete=models.CASCADE, null=True, blank=True)
+    ex_title = models.CharField(max_length=50, null=True, blank=True)
     total_score = models.DecimalField(_('Total Score'), default=0, decimal_places=2, max_digits=10)
+    ex_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
         return f'<QuizProfile: user={self.user}>'

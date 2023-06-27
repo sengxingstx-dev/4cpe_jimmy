@@ -5,8 +5,8 @@
 
 <div class="container">
   <div class="jumbotron my-4">
-    <h1> You have already answered all of our questions. </h1>
-    <a href="{% url 'quiz:leaderboard' %}" class="btn btn-lg btn-info"><i class="fa fa-trophy" aria-hidden="true"></i> See the leaderboard here <i class="fa fa-trophy" aria-hidden="true"></i></a>
+    <h1> ຕອບຫມົດຄຳຖາມແລ້ວ. </h1>
+    <a href="{% url 'quiz:leaderboard' %}" class="btn btn-lg btn-info"><i class="fa fa-trophy" aria-hidden="true"></i> ຜົນຄະແນນຂອງນັກສືກສາ <i class="fa fa-trophy" aria-hidden="true"></i></a>
   </div>
 </div>
 
@@ -14,6 +14,7 @@
 
 <div class="container">
   <div class="jumbotron my-4">
+    <p id="timer">Time left: <span id="timer-value">ກດກດກ</span></p>
 
     <h3 class="text-info">{{ question.html|safe }}</h3>
     <form class="form" action="" method="post">
@@ -33,5 +34,55 @@
   </div>
 </div>
 {% endif %}
+
+<script>
+// JavaScript code for the quiz page
+// Assume the time limit is passed from the server as `timeLimit` in seconds
+
+// let timeLimit = {{ question.ex_time_limit }} * 60; // Convert minutes to seconds
+let timeLimit = 100 * 60; // Convert minutes to seconds
+let timerValue = document.getElementById('timer-value');
+
+// Function to update the timer display
+function updateTimer(timeRemaining) {
+  let minutes = Math.floor(timeRemaining / 60);
+  let seconds = timeRemaining % 60;
+
+  // Add leading zeros if necessary
+  let minutesDisplay = minutes < 10 ? '0' + minutes : minutes;
+  let secondsDisplay = seconds < 10 ? '0' + seconds : seconds;
+
+  timerValue.textContent = `${minutesDisplay}:${secondsDisplay}`;
+}
+
+// Function to handle the quiz timer
+function startTimer() {
+  let timeRemaining = timeLimit;
+
+  // Update the timer display initially
+  updateTimer(timeRemaining);
+
+  // Function to be called every second
+  function countdown() {
+    timeRemaining--;
+
+    if (timeRemaining < 0) {
+      // Time's up, handle it here
+      clearTimeout(timer);
+      // Perform necessary actions when time runs out
+    } else {
+      // Update the timer display
+      updateTimer(timeRemaining);
+    }
+  }
+
+  // Start the countdown timer
+  let timer = setInterval(countdown, 1000);
+}
+
+// Call the startTimer function to begin the quiz timer
+startTimer();
+
+</script>
 
 {% endblock content %}
