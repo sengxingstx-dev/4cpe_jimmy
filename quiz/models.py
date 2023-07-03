@@ -14,6 +14,14 @@ class ClassRoom(TimeStampedModel):
         return f'{self.name}'
 
 
+class Course(TimeStampedModel):
+    name = models.CharField(_("Course Name"), max_length=50)
+    created_at = models.DateTimeField(_("Created At"), auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.name}'
+
+
 class Examinee(TimeStampedModel):
     fullname = models.CharField(_('Full name'), max_length=100)
     gender = models.CharField(_('Gender'), max_length=10, choices=(('Male', 'Male'), ('Female', 'Female')))
@@ -35,6 +43,7 @@ class Question(TimeStampedModel):
     html = models.TextField(_('Question Text'))
     is_published = models.BooleanField(_('Has been published?'), default=False, null=False)
     maximum_marks = models.DecimalField(_('Maximum Marks'), default=4, decimal_places=2, max_digits=6)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
     ex_time_limit = models.IntegerField(default=0, null=True, blank=True)
     ex_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 

@@ -9,7 +9,7 @@ from . import models
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ['html', 'is_published', 'ex_time_limit']
+        fields = ['html', 'is_published', 'course', 'ex_time_limit']
         widgets = {
             'html': forms.Textarea(attrs={'rows': 3, 'cols': 80}),
         }

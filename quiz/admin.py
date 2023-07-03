@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Question, Choice, QuizProfile, ClassRoom, Examinee
+from .models import Question, Choice, QuizProfile, ClassRoom, Examinee, Course
 from .forms import QuestionForm, ChoiceForm, ChoiceInlineFormset
 # Register your models here.
 
@@ -36,3 +36,4 @@ admin.site.register(Question, QuestionAdmin)
 admin.site.register(QuizProfile)
 admin.site.register(ClassRoom)
 admin.site.register(Examinee)
+admin.site.register(Course)
