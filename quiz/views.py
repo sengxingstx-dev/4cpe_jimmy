@@ -5,6 +5,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from .models import QuizProfile, Question, AttemptedQuestion
 from .forms import UserLoginForm, RegistrationForm
+from . import models
+from . import forms
 
 
 def home(request):
@@ -79,7 +81,7 @@ def login_view(request):
         password = form.cleaned_data.get("password")
         user = authenticate(username=username, password=password)
         login(request, user)
-        return redirect('/user-home')
+        return redirect('quiz:home')
     return render(request, 'quiz/login.html', {"form": form, "title": title})
 
 
@@ -110,3 +112,62 @@ def error_404(request):
 def error_500(request):
     data = {}
     return render(request, 'quiz/error_500.html', data)
+
+
+def create_class_room_view(request):
+    if request.method == 'POST':
+        form = forms.ClassRoomForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('quiz:home')
+    else:
+        form = forms.ClassRoomForm()
+        print(form.errors)
+        # form = UserProfileForm(instance=request.user)
+    
+    return render(request, 'quiz/classroom.html', {'form': form})
+
+
+def update_class_room_view(request, pk):
+    classroom = models.ClassRoom.objects.get(id=pk)
+
+    if request.method == 'POST':
+        form = forms.ClassRoomForm(request.POST, instance=classroom)
+        if form.is_valid():
+            form.save()
+            return redirect('profile', pk=pk)
+    else:
+        form = forms.ClassRoomForm(instance=classroom)
+        print(form.errors)
+        # form = UserProfileForm(instance=request.user)
+    
+    return render(request, 'quiz/classroom.html', {'form': form})
+
+
+# def create_question_view(request):
+#     if request.method == 'POST':
+#         form = forms.QuestionForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('quiz:home')
+#     else:
+#         form = forms.QuestionForm()
+#         print(form.errors)
+#         # form = UserProfileForm(instance=request.user)
+    
+#     return render(request, 'quiz/create_questions.html', {'form': form})
+
+def create_question_view(request):
+    if request.method == 'POST':
+        form = forms.QuestionForm(request.POST)
+        choice_formset = forms.ChoiceInlineFormset(request.POST, prefix='choice_formset')
+        if form.is_valid() and choice_formset.is_valid():
+            question = form.save()
+            choice_formset.instance = question
+            choice_formset.save()
+            # Handle successful form submission, e.g., redirect or render success message
+    else:
+        form = forms.QuestionForm()
+        choice_formset = forms.ChoiceInlineFormset(prefix='choice_formset')
+
+    return render(request, 'quiz/create_questions.html', {'form': form, 'choice_formset': choice_formset})

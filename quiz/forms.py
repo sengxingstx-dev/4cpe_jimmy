@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, get_user_model
 from django.utils.translation import gettext as _
 from .models import Question, Choice
+from . import models
 
 
 class QuestionForm(forms.ModelForm):
@@ -89,3 +90,9 @@ class RegistrationForm(UserCreationForm):
             user.save()
 
         return user
+
+
+class ClassRoomForm(forms.ModelForm):
+    class Meta:
+        model = models.ClassRoom
+        fields = ['name',]

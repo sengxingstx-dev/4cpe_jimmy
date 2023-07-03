@@ -39,8 +39,8 @@
 // JavaScript code for the quiz page
 // Assume the time limit is passed from the server as `timeLimit` in seconds
 
-// let timeLimit = {{ question.ex_time_limit }} * 60; // Convert minutes to seconds
-let timeLimit = 100 * 60; // Convert minutes to seconds
+let timeLimit = {{ question.ex_time_limit }} * 60; // Convert minutes to seconds
+// let timeLimit = 100 * 60; // Convert minutes to seconds
 let timerValue = document.getElementById('timer-value');
 
 // Function to update the timer display

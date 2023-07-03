@@ -4,7 +4,7 @@
 
 <section id="section-jumbotron" class="jumbotron jumbotron-fluid d-flex justify-content-center align-items-center">
   <div class="container text-center">
-    <h1 class="display-1 text-info">ລະບົບຈັດການສອບເສັງອອນໄລຂອງພາກວິຊາວິສະວະກຳຄອມພິວເຕີ</h1>
+    <h1 class="display-4 text-info">ລະບົບຈັດການສອບເສັງອອນໄລຂອງພາກວິຊາວິສະວະກຳຄອມພິວເຕີ</h1>
     <!-- <p class="display-4 d-none d-sm-block">Test your skills and become a master.</p>
     <p class="lead">We organize quizzes on various topics.</p> -->
 
@@ -16,6 +16,8 @@
         aria-hidden="true"></i> ລົງທະບຽນ</a>
 
     {% else %}
+    <a href="{% url 'quiz:create-classroom' %}" class="btn btn-lg btn-info mt-1">ສ້າງຫ້ອງ</a>
+    <!-- <a href="{% url 'quiz:create-question' %}" class="btn btn-lg btn-info mt-1">ສ້າງຄຳຖາມ</a> -->
     <a href="{% url 'quiz:play' %}" class="btn btn-lg btn-info mt-1">ສອບເສັງ</a>
     <a href="{% url 'quiz:leaderboard' %}" class="btn btn-lg btn-info mt-1">ຜົນຄະແນນຂອງນັກສືກສາ</a>
     {% endif %}

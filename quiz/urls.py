@@ -12,5 +12,8 @@ urlpatterns = [
     url(r'^login/', views.login_view, name='login'),
     url(r'^logout/', views.logout_view, name='logout'),
     url(r'^register/', views.register, name='register'),
+    url(r'^create-classroom/', views.create_class_room_view, name='create-classroom'),
+    url(r'^create-question/', views.create_question_view, name='create-question'),
+    url(r'^update-classroom/<int:pk>/', views.update_class_room_view, name='update-classroom'),
 
 ]
