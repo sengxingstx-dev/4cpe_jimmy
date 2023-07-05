@@ -64,7 +64,8 @@ class Choice(TimeStampedModel):
 
 class QuizProfile(TimeStampedModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    course = models.ForeignKey(ClassRoom, on_delete=models.CASCADE, null=True, blank=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
+    classroom = models.ForeignKey(ClassRoom, on_delete=models.CASCADE, null=True, blank=True)
     ex_title = models.CharField(max_length=50, null=True, blank=True)
     total_score = models.DecimalField(_('Total Score'), default=0, decimal_places=2, max_digits=10)
     ex_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)

@@ -8,6 +8,8 @@
             <tr>
                 <th>ລ/ດ</th>
                 <th>ຊື່ນັກສືກສາ</th>
+                <!-- <th>ຫ້ອງ</th> -->
+                <th>ວິຊາ</th>
                 <th>ຄະແນນ</th>
             </tr>
         </thead>
@@ -16,6 +18,7 @@
             <tr>
                 <td>{{ forloop.counter }}</td>
                 <td>{{ quiz_profile.user.username }}</td>
+                <td>{{ quiz_profile.course }}</td>
                 <td>{{ quiz_profile.total_score }}</td>
             </tr>
             {% endfor %}
